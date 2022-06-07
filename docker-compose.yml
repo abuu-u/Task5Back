@@ -28,7 +28,7 @@ services:
       DB_PASSWORD: "12345678"
       JWT_SECRET: "jH5VQSyKNHhQxU5Yy+xyOq2nyBX7egn9p3u+9PaHdluCXraKvQv74bazjUfLzN9H"
     ports:
-      - "5000:80"
+      - "5001:80"
     networks:
       aspnet-network:
     depends_on:
