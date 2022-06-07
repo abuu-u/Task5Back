@@ -8,7 +8,7 @@ namespace Task5Back.Services
 {
     public interface IMessageService
     {
-        GetReceivedMessagesResponse GetReceivedMessages(string name);
+        Task<GetReceivedMessagesResponse> GetReceivedMessages(string name);
 
         Task Send(SendMessageRequest model, string name);
     }
@@ -40,8 +40,9 @@ namespace Task5Back.Services
             _ = _context.SaveChanges();
         }
 
-        public GetReceivedMessagesResponse GetReceivedMessages(string name)
+        public async Task<GetReceivedMessagesResponse> GetReceivedMessages(string name)
         {
+            await _userService.CreateUser(name);
             List<Message> messages = _context.Users.Where(u => u.Name == name).Include(u => u.ReceivedMessages).FirstOrDefault()?.ReceivedMessages;
             return messages?.Count == 0
                 ? throw new NotFoundException("No messages found")

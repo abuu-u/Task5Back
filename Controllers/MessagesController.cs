@@ -26,10 +26,10 @@ namespace Task5Back.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMessages()
+        public async Task<IActionResult> GetMessages()
         {
             string name = (string)HttpContext.Items["Name"];
-            GetReceivedMessagesResponse response = _messageService.GetReceivedMessages(name);
+            GetReceivedMessagesResponse response = await _messageService.GetReceivedMessages(name);
             return Ok(response);
         }
     }

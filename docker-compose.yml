@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres:
-    container_name: postgres
+    container_name: postgres5
     image: postgres:14.3-alpine
     environment:
       POSTGRES_PASSWORD: "12345678"
@@ -15,7 +15,7 @@ services:
     networks:
       aspnet-network:
   aspnet:
-    container_name: aspnet
+    container_name: aspnet5
     build:
       context: .
       args:
