@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14.3-alpine
+    environment:
+      POSTGRES_PASSWORD: "12345678"
+      POSTGRES_USER: "pg"
+      POSTGRES_DB: "pg"
+      PGDATA: "/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      aspnet-network:
+  aspnet:
+    container_name: aspnet
+    build:
+      context: .
+      args:
+        buildnbinfo: 1
+    environment:
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DB_NAME: "pg"
+      DB_USERNAME: "pg"
+      DB_PASSWORD: "12345678"
+      JWT_SECRET: "jH5VQSyKNHhQxU5Yy+xyOq2nyBX7egn9p3u+9PaHdluCXraKvQv74bazjUfLzN9H"
+    ports:
+      - "5000:80"
+    networks:
+      aspnet-network:
+    depends_on:
+      - "postgres"
+networks:
+  aspnet-network:
+volumes:
+  pg-data:
